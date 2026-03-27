@@ -19,6 +19,8 @@ export function generateCIRP(d) {
   }, d.maintenance_schedule);
 
   const fileSystems = (d.file_sharing_systems || []).join(', ');
+  const adGroups = (d.ad_group_names || []).join(', ');
+  const researchSystems = (d.research_computing_systems || []).join(', ');
   const personnelTypes = (d.personnel_types || []).map(t => `- ${t}`).join('\n');
   const admins = (d.program_administrators || [])
     .filter(a => a.name)
@@ -77,7 +79,7 @@ This Cybersecurity Incident Response Plan (CIRP) establishes how the ${d.departm
 - ${fileSystems} folders and file-sharing systems.
 - Department devices used by faculty, staff, and researchers.
 - ${d.university_name} authenticated accounts and Active Directory group memberships.
-- Research computing resources and data (${d.research_computing}), including those managed for faculty and postdoctoral researchers.
+- Research computing resources and data (${researchSystems}), including those managed for faculty and postdoctoral researchers.
 - Accounts and calendar systems.
 - Webform and web app systems collecting or reporting directory information, personnel data, media, and other content.
 - Any data classified under [${d.university_name}'s information classification standards](${d.classification_standards_url}).
@@ -214,7 +216,7 @@ ${d.department_abbr} uses a four-level severity classification aligned with ${d.
 **Examples:**
 - Single compromised account with evidence of unauthorized use.
 - Malware confirmed on a departmental device.
-- Unauthorized access to ${fileSystems}, Research Computing, or Library systems (${d.research_computing}) containing research or personnel data.
+- Unauthorized access to ${fileSystems}, research computing systems (${researchSystems}), or Library systems containing research or personnel data.
 - Phishing campaign specifically targeting ${d.department_abbr} members.
 - Compromise of the ${d.department_abbr} websites (${d.website_url}).
 
@@ -272,7 +274,7 @@ Cybersecurity incidents are not always obvious. Below are indicators organized f
 - Alerts or anomalies from endpoint protection, intrusion detection, or monitoring tools
 - Unexpected data transfers or large outbound data flows
 - Changes to website content on ${d.website_url} or ${d.intranet_url} that were not authorized
-- Unexpected additions or changes to the ${d.ad_group_name} Active Directory group
+- Unexpected additions or changes to the ${adGroups} Active Directory group${(d.ad_group_names || []).length > 1 ? 's' : ''}
 - Database or log anomalies suggesting unauthorized queries or data access
 - Failed authentication attempts at volumes suggesting a brute-force attack
 - Unauthorized or unexpected changes to ${d.cms_platform} configurations, user roles, or webform submissions
@@ -313,7 +315,7 @@ Upon receiving a report, the Primary IRL will:
 3. Take immediate containment actions as appropriate and directed, which may include:
    - Requesting OIT Service Desk lock a compromised account
    - Removing a compromised device from the network
-   - Revoking access from the ${d.ad_group_name} Active Directory group
+   - Revoking access from the ${adGroups} Active Directory group${(d.ad_group_names || []).length > 1 ? 's' : ''}
    - Preserving relevant logs from departmental systems
 4. Notify the Department Chair for Severity 1 or 2 incidents
 5. Begin the department's incident log documenting all actions and communications

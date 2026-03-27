@@ -62,12 +62,43 @@ function resolve(obj, path) {
 function bindNavigation() {
   document.querySelectorAll('[data-nav]').forEach(btn => {
     btn.addEventListener('click', () => {
+      // validate required fields in the current section before advancing
+      const current = document.querySelector('.form-section.active');
+      if (current && !validateSection(current)) return;
+
       const target = btn.dataset.nav;
       showSection(target);
       if (target === 'preview') updatePreview();
     });
   });
 }
+
+/** Validate all required inputs within a section. Returns true if valid. */
+function validateSection(section) {
+  // clear previous validation state
+  section.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+  const missing = [];
+  section.querySelectorAll('[required]').forEach(el => {
+    if (!el.value.trim()) {
+      el.classList.add('is-invalid');
+      missing.push(el);
+    }
+  });
+
+  if (missing.length) {
+    missing[0].focus();
+    return false;
+  }
+  return true;
+}
+
+/** Clear invalid state on input. */
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('is-invalid') && e.target.value.trim()) {
+    e.target.classList.remove('is-invalid');
+  }
+});
 
 function showSection(id) {
   document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
@@ -144,16 +175,23 @@ function gatherFormData() {
     set(data, key, sanitize(val));
   });
 
-  // special: file_sharing_systems as array
-  const fss = document.getElementById('file_sharing_systems');
-  if (fss && fss.value.trim()) {
-    data.file_sharing_systems = fss.value.split(',').map(s => sanitize(s.trim())).filter(Boolean);
+  // comma-separated array fields
+  for (const id of ['file_sharing_systems', 'ad_group_names', 'research_computing_systems']) {
+    const el = document.getElementById(id);
+    if (el && el.value.trim()) {
+      data[id] = el.value.split(',').map(s => sanitize(s.trim())).filter(Boolean);
+    }
   }
 
   // special: personnel_types as array (newlines are intentional here)
   const pt = document.getElementById('personnel_types');
   if (pt && pt.value.trim()) {
     data.personnel_types = pt.value.split('\n').map(s => sanitize(s.trim())).filter(Boolean);
+  }
+
+  // abbreviation falls back to department name
+  if (!data.department_abbr) {
+    data.department_abbr = data.department_name || '';
   }
 
   // repeating: program administrators

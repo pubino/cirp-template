@@ -59,24 +59,27 @@
 
             <div class="row g-3">
               <div class="col-md-8">
-                <label class="form-label" for="department_name">Department Name</label>
-                <input id="department_name" class="form-control" data-config="department_name" data-field="department_name">
+                <label class="form-label" for="department_name">Department Name <span class="text-danger">*</span></label>
+                <input id="department_name" class="form-control" data-field="department_name" required
+                       placeholder="e.g., Department of Civil & Environmental Engineering">
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="department_abbr">Abbreviation</label>
-                <input id="department_abbr" class="form-control" data-config="department_abbr" data-field="department_abbr">
+                <input id="department_abbr" class="form-control" data-field="department_abbr"
+                       placeholder="e.g., CEE">
+                <div class="form-text">If blank, the full name is used throughout.</div>
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="school_name">School / College</label>
-                <input id="school_name" class="form-control" data-config="school_name" data-field="school_name">
+                <label class="form-label" for="school_name">School / College <span class="text-danger">*</span></label>
+                <input id="school_name" class="form-control" data-config="school_name" data-field="school_name" required>
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="university_name">University</label>
-                <input id="university_name" class="form-control" data-config="university_name" data-field="university_name">
+                <label class="form-label" for="university_name">University <span class="text-danger">*</span></label>
+                <input id="university_name" class="form-control" data-config="university_name" data-field="university_name" required>
               </div>
               <div class="col-12">
-                <label class="form-label" for="location">Building / Location</label>
-                <input id="location" class="form-control" data-config="location" data-field="location"
+                <label class="form-label" for="location">Building / Location <span class="text-danger">*</span></label>
+                <input id="location" class="form-control" data-field="location" required
                        placeholder="e.g., Engineering Quadrangle, Olden Street, Princeton, NJ 08544">
               </div>
             </div>
@@ -90,11 +93,13 @@
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label" for="website_url">Department Website</label>
-                <input id="website_url" class="form-control" data-config="website_url" data-field="website_url">
+                <input id="website_url" class="form-control" data-field="website_url"
+                       placeholder="e.g., cee.princeton.edu">
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="intranet_url">Intranet URL</label>
-                <input id="intranet_url" class="form-control" data-config="intranet_url" data-field="intranet_url">
+                <input id="intranet_url" class="form-control" data-field="intranet_url"
+                       placeholder="e.g., inside.cee.princeton.edu">
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="website_platform">Website Platform</label>
@@ -105,12 +110,14 @@
                 <input id="cms_platform" class="form-control" data-config="cms_platform" data-field="cms_platform">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="ad_group_name">Active Directory Group</label>
-                <input id="ad_group_name" class="form-control" data-config="ad_group_name" data-field="ad_group_name">
+                <label class="form-label" for="ad_group_names">Active Directory Group(s) <span class="form-text">(comma-separated)</span></label>
+                <input id="ad_group_names" class="form-control" data-config="ad_group_names" data-field="ad_group_names"
+                       placeholder="e.g., CEE_Dept, CEE_Research">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="research_computing">Research Computing System</label>
-                <input id="research_computing" class="form-control" data-config="research_computing" data-field="research_computing">
+                <label class="form-label" for="research_computing_systems">Research Computing System(s) <span class="form-text">(comma-separated)</span></label>
+                <input id="research_computing_systems" class="form-control" data-config="research_computing_systems" data-field="research_computing_systems"
+                       placeholder="e.g., TigerData, Della">
               </div>
               <div class="col-12">
                 <label class="form-label" for="file_sharing_systems">File Sharing Systems <span class="form-text">(comma-separated)</span></label>
@@ -148,20 +155,20 @@
 
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label" for="primary_irl_name">Primary IRL — Name</label>
-                <input id="primary_irl_name" class="form-control" data-field="primary_irl_name" placeholder="Full name">
+                <label class="form-label" for="primary_irl_name">Primary IRL — Name <span class="text-danger">*</span></label>
+                <input id="primary_irl_name" class="form-control" data-field="primary_irl_name" required placeholder="Full name">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="primary_irl_title">Primary IRL — Title</label>
-                <input id="primary_irl_title" class="form-control" data-field="primary_irl_title" placeholder="e.g., IT Manager">
+                <label class="form-label" for="primary_irl_title">Primary IRL — Title <span class="text-danger">*</span></label>
+                <input id="primary_irl_title" class="form-control" data-field="primary_irl_title" required placeholder="e.g., IT Manager">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="secondary_irl_name">Secondary IRL — Name</label>
-                <input id="secondary_irl_name" class="form-control" data-field="secondary_irl_name" placeholder="Full name">
+                <label class="form-label" for="secondary_irl_name">Secondary IRL — Name <span class="text-danger">*</span></label>
+                <input id="secondary_irl_name" class="form-control" data-field="secondary_irl_name" required placeholder="Full name">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="secondary_irl_title">Secondary IRL — Title</label>
-                <input id="secondary_irl_title" class="form-control" data-field="secondary_irl_title" placeholder="e.g., Department Manager">
+                <label class="form-label" for="secondary_irl_title">Secondary IRL — Title <span class="text-danger">*</span></label>
+                <input id="secondary_irl_title" class="form-control" data-field="secondary_irl_title" required placeholder="e.g., Department Manager">
               </div>
             </div>
           </div>
@@ -173,12 +180,12 @@
 
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label" for="department_chair">Department Chair</label>
-                <input id="department_chair" class="form-control" data-field="department_chair" placeholder="Full name">
+                <label class="form-label" for="department_chair">Department Chair <span class="text-danger">*</span></label>
+                <input id="department_chair" class="form-control" data-field="department_chair" required placeholder="Full name">
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="department_manager">Department Manager</label>
-                <input id="department_manager" class="form-control" data-field="department_manager" placeholder="Full name">
+                <label class="form-label" for="department_manager">Department Manager <span class="text-danger">*</span></label>
+                <input id="department_manager" class="form-control" data-field="department_manager" required placeholder="Full name">
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="grants_manager">Grants Manager</label>

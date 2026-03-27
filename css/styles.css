@@ -139,6 +139,18 @@ a:hover{color:var(--pu-orange)}
 .form-label{font-weight:500}
 .form-text{font-size:.8rem;color:var(--pu-gray)}
 
+/* Validation */
+.form-control.is-invalid,.form-select.is-invalid{
+  border-color:#dc3545;
+  box-shadow:none;
+}
+.form-control.is-invalid:focus,.form-select.is-invalid:focus{
+  border-color:#dc3545;
+  outline:3px solid rgba(220,53,69,.25);
+  outline-offset:1px;
+}
+.text-danger{color:#dc3545 !important}
+
 /* Alerts */
 .alert-warning{
   background-color:var(--pu-peach);
