@@ -321,6 +321,19 @@ a:hover{color:var(--pu-orange)}
 #preview-pane ul,#preview-pane ol{padding-left:1.5rem}
 #preview-pane li{margin-bottom:.25rem}
 
+/* PDF page-break rules (honored by html2pdf.js in css mode) */
+#preview-pane h2{page-break-before:always;break-before:page}
+#preview-pane h1+h2{page-break-before:avoid;break-before:avoid}
+#preview-pane h2:first-child{page-break-before:avoid;break-before:avoid}
+#preview-pane h3{page-break-after:avoid;break-after:avoid}
+#preview-pane h2+*{page-break-before:avoid;break-before:avoid}
+#preview-pane table{page-break-inside:avoid;break-inside:avoid}
+#preview-pane blockquote{page-break-inside:avoid;break-inside:avoid}
+#preview-pane pre{page-break-inside:avoid;break-inside:avoid}
+#preview-pane tr{page-break-inside:avoid;break-inside:avoid}
+#preview-pane li{page-break-inside:avoid;break-inside:avoid}
+#preview-pane p{page-break-inside:avoid;break-inside:avoid}
+
 /* Markdown raw view */
 #markdown-raw{
   font-family:'Roboto Mono',monospace;

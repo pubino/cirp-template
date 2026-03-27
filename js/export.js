@@ -42,7 +42,7 @@ export function downloadPDF(previewElement, filename) {
     image:        { type: 'jpeg', quality: 0.98 },
     html2canvas:  { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
     jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-    pagebreak:    { mode: ['css', 'legacy'], avoid: ['tr', 'li', 'h2', 'h3'] }
+    pagebreak:    { mode: ['css', 'legacy'], avoid: ['tr', 'li', 'h3', 'p', 'blockquote', 'pre'] }
   };
 
   html2pdf().set(opt).from(previewElement).save().then(() => {
