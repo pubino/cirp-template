@@ -77,17 +77,35 @@ function bindNavigation() {
 function validateSection(section) {
   // clear previous validation state
   section.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+  section.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+  section.querySelectorAll('.validation-banner').forEach(el => el.remove());
 
   const missing = [];
   section.querySelectorAll('[required]').forEach(el => {
     if (!el.value.trim()) {
       el.classList.add('is-invalid');
+      // add inline feedback message after the input
+      const label = el.closest('.col-md-8, .col-md-6, .col-md-4, .col-12, .col-sm-6')
+        ?.querySelector('.form-label');
+      const fieldName = label
+        ? label.textContent.replace(/\s*\*\s*$/, '').trim()
+        : 'This field';
+      const fb = document.createElement('div');
+      fb.className = 'invalid-feedback';
+      fb.textContent = `${fieldName} is required.`;
+      el.insertAdjacentElement('afterend', fb);
       missing.push(el);
     }
   });
 
   if (missing.length) {
+    // insert a banner at the top of the section
+    const banner = document.createElement('div');
+    banner.className = 'validation-banner show';
+    banner.textContent = `Please complete ${missing.length === 1 ? '1 required field' : missing.length + ' required fields'} before continuing.`;
+    section.insertBefore(banner, section.firstChild);
     missing[0].focus();
+    missing[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
     return false;
   }
   return true;
@@ -97,6 +115,14 @@ function validateSection(section) {
 document.addEventListener('input', e => {
   if (e.target.classList.contains('is-invalid') && e.target.value.trim()) {
     e.target.classList.remove('is-invalid');
+    // remove the adjacent feedback message
+    const fb = e.target.nextElementSibling;
+    if (fb && fb.classList.contains('invalid-feedback')) fb.remove();
+    // remove the banner if all fields are now valid
+    const section = e.target.closest('.form-section');
+    if (section && !section.querySelector('.is-invalid')) {
+      section.querySelectorAll('.validation-banner').forEach(el => el.remove());
+    }
   }
 });
 

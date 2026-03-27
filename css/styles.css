@@ -149,7 +149,26 @@ a:hover{color:var(--pu-orange)}
   outline:3px solid rgba(220,53,69,.25);
   outline-offset:1px;
 }
+.invalid-feedback{
+  display:block;
+  font-size:.8rem;
+  color:#dc3545;
+  margin-top:.25rem;
+}
 .text-danger{color:#dc3545 !important}
+
+/* Validation banner */
+.validation-banner{
+  display:none;
+  background:#dc3545;
+  color:var(--pu-white);
+  padding:.5rem 1rem;
+  font-size:.85rem;
+  font-weight:500;
+  margin-bottom:.75rem;
+  border-radius:0;
+}
+.validation-banner.show{display:block;animation:puFadeIn .15s ease}
 
 /* Alerts */
 .alert-warning{
