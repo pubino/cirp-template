@@ -108,6 +108,25 @@ function bindRepeatingFields() {
   });
 }
 
+/* ── input sanitization ────────────────────────────────────────── */
+
+/** Strip HTML tags and characters that could inject Markdown structure or scripts. */
+function sanitize(str) {
+  if (typeof str !== 'string') return str;
+  return str
+    .replace(/[<>]/g, '')            // strip HTML angle brackets
+    .replace(/javascript:/gi, '')    // strip JS protocol
+    .replace(/on\w+\s*=/gi, '')      // strip inline event handlers
+    .replace(/\r?\n/g, ' ');         // collapse newlines in single-line fields
+}
+
+/** Sanitize a value — recurse into arrays. */
+function sanitizeValue(val) {
+  if (typeof val === 'string') return sanitize(val);
+  if (Array.isArray(val)) return val.map(sanitizeValue);
+  return val;
+}
+
 /* ── gather form data ──────────────────────────────────────────── */
 function gatherFormData() {
   const data = structuredClone(config);
@@ -122,26 +141,26 @@ function gatherFormData() {
       const [y, m, d] = val.split('-').map(Number);
       val = new Date(y, m - 1, d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
-    set(data, key, val);
+    set(data, key, sanitize(val));
   });
 
   // special: file_sharing_systems as array
   const fss = document.getElementById('file_sharing_systems');
   if (fss && fss.value.trim()) {
-    data.file_sharing_systems = fss.value.split(',').map(s => s.trim()).filter(Boolean);
+    data.file_sharing_systems = fss.value.split(',').map(s => sanitize(s.trim())).filter(Boolean);
   }
 
-  // special: personnel_types as array
+  // special: personnel_types as array (newlines are intentional here)
   const pt = document.getElementById('personnel_types');
   if (pt && pt.value.trim()) {
-    data.personnel_types = pt.value.split('\n').map(s => s.trim()).filter(Boolean);
+    data.personnel_types = pt.value.split('\n').map(s => sanitize(s.trim())).filter(Boolean);
   }
 
   // repeating: program administrators
   const admins = [];
   document.querySelectorAll('#admin-list .repeating-entry').forEach(entry => {
-    const name = entry.querySelector('.admin-name')?.value.trim();
-    const role = entry.querySelector('.admin-role')?.value.trim();
+    const name = sanitize(entry.querySelector('.admin-name')?.value.trim() || '');
+    const role = sanitize(entry.querySelector('.admin-role')?.value.trim() || '');
     if (name) admins.push({ name, role });
   });
   if (admins.length) data.program_administrators = admins;
@@ -174,11 +193,12 @@ function updatePreview() {
 
 /** Minimal Markdown → HTML renderer (no external dependency). */
 function renderMarkdown(md) {
-  let html = md;
+  // Escape raw HTML in the source to prevent XSS via innerHTML
+  let html = md.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // fenced code blocks
+  // fenced code blocks (already HTML-escaped above)
   html = html.replace(/```([\s\S]*?)```/g, (_, code) =>
-    `<pre><code>${escapeHtml(code.trim())}</code></pre>`);
+    `<pre><code>${code.trim()}</code></pre>`);
 
   // inline code
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -200,8 +220,13 @@ function renderMarkdown(md) {
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
 
-  // links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // links — only allow http(s) and anchor hrefs
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
+    if (/^https?:\/\//.test(href) || href.startsWith('#')) {
+      return `<a href="${href}">${text}</a>`;
+    }
+    return text;
+  });
 
   // tables
   html = html.replace(/^(\|.+\|)\n\|[-| :]+\|\n((?:\|.+\|\n?)*)/gm, (_, header, body) => {

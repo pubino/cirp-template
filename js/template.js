@@ -45,28 +45,25 @@ export function generateCIRP(d) {
 
 ---
 
-> **NOTICE:** This document is ${d.classification_level} and is intended solely for the staff and faculty
-> of the ${d.department_name}. Unauthorized disclosure,
-> reproduction, or distribution is strictly prohibited. All recipients are bound by the
-> confidentiality obligations described in Section 10 of this plan.
+> **NOTICE:** This document is ${d.classification_level} and is intended solely for the staff and faculty of the ${d.department_name}. Unauthorized disclosure, reproduction, or distribution is strictly prohibited. All recipients are bound by the confidentiality obligations described in Section 10 of this plan.
 
 ---
 
 ## Table of Contents
 
-1. [Purpose and Scope](#1-purpose-and-scope)
-2. [Timing](#2-timing)
-3. [Incident Response Liaisons](#3-incident-response-liaisons)
-4. [Roles and Responsibilities](#4-roles-and-responsibilities)
-5. [Incident Severity Classification](#5-incident-severity-classification)
-6. [Incident Identification — How to Recognize an Incident](#6-incident-identification--how-to-recognize-an-incident)
-7. [Incident Reporting Procedures](#7-incident-reporting-procedures)
-8. [Unit-Level Support and Escalation](#8-unit-level-support-and-escalation)
-9. [Communication Protocols](#9-communication-protocols)
-10. [Confidentiality Requirements](#10-confidentiality-requirements)
-11. [Post-Incident Review](#11-post-incident-review)
-12. [Training and Awareness](#12-training-and-awareness)
-13. [Plan Maintenance](#13-plan-maintenance)
+1. Purpose and Scope
+2. Timing
+3. Incident Response Liaisons
+4. Roles and Responsibilities
+5. Incident Severity Classification
+6. Incident Identification — How to Recognize an Incident
+7. Incident Reporting Procedures
+8. Unit-Level Support and Escalation
+9. Communication Protocols
+10. Confidentiality Requirements
+11. Post-Incident Review
+12. Training and Awareness
+13. Plan Maintenance
 
 ---
 
@@ -296,7 +293,7 @@ Contact the Primary IRL immediately:
 |----------|---------|--------|
 | **First** | Primary IRL | In person (${d.location.split(',')[0]}), phone, or email |
 | **Second** | Secondary IRL | In person (${d.location.split(',')[0]}), phone, or email |
-| **If neither available** | ${d.university_name} ISO directly | **Email:** ${d.iso_email} \\| **Phone:** ${d.iso_phone} \\| **Web:** ${d.university_name} Service Portal |
+| **If neither available** | ${d.university_name} ISO directly | Email: ${d.iso_email}, Phone: ${d.iso_phone}, or ${d.university_name} Service Portal |
 
 When reporting, provide as much of the following as you can. Do not delay your report because you lack some details:
 
@@ -356,24 +353,6 @@ Under ISO direction, ${d.department_abbr} supports the response by:
 - **Impact assessment:** Identifying what data was on affected systems, its classification, and who had access
 - **Personnel coordination:** Ensuring affected individuals are available for interviews and follow-up, and that operational continuity is maintained
 - **Physical security:** Securing ${d.location.split(',')[0]} areas if physical access is part of the incident
-
-### 8.3 Escalation Path
-
-\`\`\`
-Reporter (any ${d.department_abbr} member)
-    |
-    v
-Primary IRL  -->  Secondary IRL
-    |
-    v
-${d.university_name} ISO (${d.iso_email})
-    |                               |
-    v                               v
-OIT Service Desk              ISO Incident Room
-    |                          (${d.department_abbr} IRL)
-    v
-Department Chair  -->  University Leadership
-\`\`\`
 
 ---
 
