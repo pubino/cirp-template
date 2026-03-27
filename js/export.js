@@ -28,14 +28,26 @@ export function downloadPDF(previewElement, filename) {
     return;
   }
 
+  // Remove scroll constraints so html2canvas captures the full document
+  const savedMaxHeight = previewElement.style.maxHeight;
+  const savedOverflow = previewElement.style.overflow;
+  const savedBorder = previewElement.style.border;
+  previewElement.style.maxHeight = 'none';
+  previewElement.style.overflow = 'visible';
+  previewElement.style.border = 'none';
+
   const opt = {
     margin:       [0.6, 0.7, 0.6, 0.7],
     filename:     filename || 'CIRP.pdf',
     image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
     jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+    pagebreak:    { mode: ['css', 'legacy'], avoid: ['tr', 'li', 'h2', 'h3'] }
   };
 
-  html2pdf().set(opt).from(previewElement).save();
+  html2pdf().set(opt).from(previewElement).save().then(() => {
+    previewElement.style.maxHeight = savedMaxHeight;
+    previewElement.style.overflow = savedOverflow;
+    previewElement.style.border = savedBorder;
+  });
 }
