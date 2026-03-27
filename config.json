@@ -1,0 +1,44 @@
+{
+  "department_name": "Department of Operations Research & Financial Engineering",
+  "department_abbr": "ORFE",
+  "school_name": "School of Engineering and Applied Science",
+  "university_name": "Princeton University",
+  "location": "Sherrerd Hall, Charlton Street, Princeton, NJ 08544",
+  "website_url": "orfe.princeton.edu",
+  "intranet_url": "inside.orfe.princeton.edu",
+  "website_platform": "Princeton Site Builder",
+  "ad_group_name": "ORFE_Dept",
+  "file_sharing_systems": ["ORFE Share", "OneDrive", "Google Shared Drive", "Dropbox"],
+  "research_computing": "TigerData",
+  "cms_platform": "Drupal CMS",
+  "classification_level": "CONFIDENTIAL",
+  "iso_email": "iso@princeton.edu",
+  "iso_phone": "609-258-2820",
+  "classification_standards_url": "https://protectingourinfo.princeton.edu/",
+  "personnel_types": [
+    "Faculty, Visiting Lecturers, and Professors of the Practice",
+    "Administrative staff, Research Staff and Postdoctoral Researchers",
+    "Graduate students with access to departmental systems, or temporary personnel granted access"
+  ],
+  "severity_response_times": {
+    "critical": "Immediately",
+    "high": "Within 1 hour",
+    "medium": "Within 8 hours",
+    "low": "Within 2 business days"
+  },
+  "escalation_timeout_minutes": 15,
+  "post_incident_report_days": 5,
+  "post_incident_review_days": 10,
+  "lessons_learned_days": 15,
+  "training_schedule": {
+    "awareness_training": "Each Semester",
+    "cirp_review": "Annually and upon hire",
+    "phishing_drills": "Continuous",
+    "data_protection": "Opportunistic"
+  },
+  "maintenance_schedule": {
+    "full_review": "Annually (or after any Severity 1/2 incident)",
+    "contact_verification": "Quarterly",
+    "iso_alignment": "Annually"
+  }
+}
