@@ -1,12 +1,12 @@
 # CIRP Template Generator
 
-A GitHub Pages application for generating customized **Cybersecurity Incident Response Plans** (CIRPs) for departments within Princeton University's School of Engineering and Applied Science.
+A GitHub Pages application for generating customized Cybersecurity Incident Response Plans (CIRPs).
 
 **Live site:** [https://pubino.github.io/cirp-template](https://pubino.github.io/cirp-template)
 
 ## How It Works
 
-1. **Fork this repository** to your department's GitHub organization.
+1. **Fork this repository** to your account or organization.
 2. **Edit `config.json`** to set your department's defaults — name, abbreviation, building, systems, response timelines, etc. These serve as repo-level configuration that pre-fills the form.
 3. **Enable GitHub Pages** (Settings → Pages → Source: Deploy from a branch, Branch: `main`, folder: `/ (root)`).
 4. **Open the deployed site** and fill in personnel details (IRL names, department chair, administrators).
@@ -14,7 +14,9 @@ A GitHub Pages application for generating customized **Cybersecurity Incident Re
 
 ## `config.json` — Repo-Level Variables
 
-The `config.json` file contains organization-level defaults that change infrequently. When a department forks this repo, editing this file is the primary customization step. The included default reflects the ORFE department as a reference example.
+The `config.json` file contains organization-level defaults that change infrequently. When forking the repo, edit this file as the primary customization step.
+
+The included default reflects a reference example.
 
 Key fields:
 
