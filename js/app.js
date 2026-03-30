@@ -202,7 +202,7 @@ function gatherFormData() {
   });
 
   // comma-separated array fields
-  for (const id of ['file_sharing_systems', 'ad_group_names', 'research_computing_systems']) {
+  for (const id of ['file_sharing_systems', 'ad_group_names', 'research_computing_systems', 'website_platforms', 'cms_platforms']) {
     const el = document.getElementById(id);
     if (el && el.value.trim()) {
       data[id] = el.value.split(',').map(s => sanitize(s.trim())).filter(Boolean);

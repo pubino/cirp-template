@@ -21,6 +21,8 @@ export function generateCIRP(d) {
   const fileSystems = (d.file_sharing_systems || []).join(', ');
   const adGroups = (d.ad_group_names || []).join(', ');
   const researchSystems = (d.research_computing_systems || []).join(', ');
+  const webPlatforms = (d.website_platforms || []).join(', ');
+  const cmsPlatforms = (d.cms_platforms || []).join(', ');
   const personnelTypes = (d.personnel_types || []).map(t => `- ${t}`).join('\n');
   const admins = (d.program_administrators || [])
     .filter(a => a.name)
@@ -75,7 +77,7 @@ This Cybersecurity Incident Response Plan (CIRP) establishes how the ${d.departm
 
 **Scope.** This plan covers all ${d.department_abbr} information assets, including but not limited to:
 
-- The ${d.department_abbr} departmental website (${d.website_url}) and intranet (${d.intranet_url}), both running on the ${d.website_platform} platform.
+- The ${d.department_abbr} departmental website (${d.website_url}) and intranet (${d.intranet_url})${webPlatforms ? `, running on ${webPlatforms}` : ''}.
 - ${fileSystems} folders and file-sharing systems.
 - Department devices used by faculty, staff, and researchers.
 - ${d.university_name} authenticated accounts and Active Directory group memberships.
@@ -277,7 +279,7 @@ Cybersecurity incidents are not always obvious. Below are indicators organized f
 - Unexpected additions or changes to the ${adGroups} Active Directory group${(d.ad_group_names || []).length > 1 ? 's' : ''}
 - Database or log anomalies suggesting unauthorized queries or data access
 - Failed authentication attempts at volumes suggesting a brute-force attack
-- Unauthorized or unexpected changes to ${d.cms_platform} configurations, user roles, or webform submissions
+- Unauthorized or unexpected changes to ${cmsPlatforms || 'CMS'} configurations, user roles, or webform submissions
 
 ---
 
@@ -351,7 +353,7 @@ Under ISO direction, ${d.department_abbr} supports the response by:
 
 - **Access control actions:** Disabling accounts, revoking Active Directory memberships, resetting credentials
 - **System isolation:** Disconnecting affected workstations or systems from the network
-- **Evidence preservation:** Maintaining and providing logs from departmental systems (${d.cms_platform} logs, file access logs, email logs)
+- **Evidence preservation:** Maintaining and providing logs from departmental systems (${cmsPlatforms || 'CMS'} logs, file access logs, email logs)
 - **Impact assessment:** Identifying what data was on affected systems, its classification, and who had access
 - **Personnel coordination:** Ensuring affected individuals are available for interviews and follow-up, and that operational continuity is maintained
 - **Physical security:** Securing ${d.location.split(',')[0]} areas if physical access is part of the incident

@@ -1,11 +1,11 @@
 {
   "school_name": "School of Engineering and Applied Science",
   "university_name": "Princeton University",
-  "website_platform": "Princeton Site Builder",
+  "website_platforms": ["Princeton Site Builder"],
   "ad_group_names": [],
   "file_sharing_systems": ["OneDrive", "Google Shared Drive", "Dropbox"],
   "research_computing_systems": ["TigerData"],
-  "cms_platform": "Drupal CMS",
+  "cms_platforms": ["Drupal CMS"],
   "classification_level": "CONFIDENTIAL",
   "iso_email": "iso@princeton.edu",
   "iso_phone": "609-258-2820",
